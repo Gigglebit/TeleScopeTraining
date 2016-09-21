@@ -14,10 +14,12 @@ import time
 #fo = open("out_summary.txt", "w")
 #fo.write('')
 #fo.close()
-
+content = []
 #,"https://www.youtube.com/watch?v=O9F5Yk1WOKo","https://www.youtube.com/watch?v=Iwt08oPbX5A","https://www.youtube.com/watch?v=Eho8HDtkCiU","https://www.youtube.com/watch?v=k2GnFFajzTA","https://www.youtube.com/watch?v=H9vevyszht4","https://www.youtube.com/watch?v=xS4RPj7IPGM","https://www.youtube.com/watch?v=qdKqn32kUKU","https://www.youtube.com/watch?v=mRq5nzWbZNg","https://www.youtube.com/watch?v=LGlipVxtvbM","https://www.youtube.com/watch?v=KUiDyQxHHk0","https://www.youtube.com/watch?v=50GBci6ToVA&list=PLKkDjgBOPjWHvsizaCkXLN9HDtl3kU_Yw"
 #360 ,"https://www.youtube.com/watch?v=ETvHZ8ITSdQ&index=2&list=PLm6qoFmp6K51Kne3BQo8_aN0s54y2jGfx","https://www.youtube.com/watch?v=YAWy4LjS4Fc","https://www.youtube.com/watch?v=ckDHQQ7PXCo","https://www.youtube.com/watch?v=tM6_n9VwLQM","https://www.youtube.com/watch?v=iDfsGX5pCHk&list=PLU8wpH_LfhmvMokgsfQtiHNsP96bU7cnr&index=9","https://www.youtube.com/watch?v=9ngmwMVDIx8&list=PLU8wpH_LfhmvMokgsfQtiHNsP96bU7cnr&index=12","https://www.youtube.com/watch?v=H2Jc1wHlhEU&list=PLU8wpH_LfhmvMokgsfQtiHNsP96bU7cnr&index=29"
-
+with open('youtube1080ids', 'r') as f:
+	content = f.readlines()
+youtube_prefix = "https://www.youtube.com/watch?v="
 YoutubeList=["https://www.youtube.com/watch?v=WQ2c9DB3EnU","https://www.youtube.com/watch?v=OvSG1EimSIs","https://www.youtube.com/watch?v=O9F5Yk1WOKo","https://www.youtube.com/watch?v=Iwt08oPbX5A","https://www.youtube.com/watch?v=Eho8HDtkCiU","https://www.youtube.com/watch?v=k2GnFFajzTA","https://www.youtube.com/watch?v=H9vevyszht4","https://www.youtube.com/watch?v=xS4RPj7IPGM","https://www.youtube.com/watch?v=qdKqn32kUKU","https://www.youtube.com/watch?v=mRq5nzWbZNg","https://www.youtube.com/watch?v=LGlipVxtvbM","https://www.youtube.com/watch?v=KUiDyQxHHk0","https://www.youtube.com/watch?v=50GBci6ToVA&list=PLKkDjgBOPjWHvsizaCkXLN9HDtl3kU_Yw"]
 
 TszList=["https://www.youtube.com/watch?v=Qd6EaMd37jA&index=1&list=PLm6qoFmp6K51Kne3BQo8_aN0s54y2jGfx","https://www.youtube.com/watch?v=ETvHZ8ITSdQ&index=2&list=PLm6qoFmp6K51Kne3BQo8_aN0s54y2jGfx","https://www.youtube.com/watch?v=YAWy4LjS4Fc","https://www.youtube.com/watch?v=ckDHQQ7PXCo","https://www.youtube.com/watch?v=tM6_n9VwLQM","https://www.youtube.com/watch?v=iDfsGX5pCHk&list=PLU8wpH_LfhmvMokgsfQtiHNsP96bU7cnr&index=9","https://www.youtube.com/watch?v=9ngmwMVDIx8&list=PLU8wpH_LfhmvMokgsfQtiHNsP96bU7cnr&index=12","https://www.youtube.com/watch?v=H2Jc1wHlhEU&list=PLU8wpH_LfhmvMokgsfQtiHNsP96bU7cnr&index=29"]
@@ -26,6 +28,7 @@ inspectedIpList=list()
 
 def loopThroughVideoList(videoList,tag):
 	for video in videoList:
+		video = youtube_prefix + video
 		################## open firefox ###################	
 		#webbrowser.get('firefox').open_new_tab(video)
 		child = sp.Popen("firefox %s" % video, shell=True)
