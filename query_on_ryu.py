@@ -27,7 +27,7 @@ def retrieve_flow_entries_from_influxdb():
 	src_ip = sys.argv[1]
 
 	""" Test 1"""
-	timeFrom = "now() - 10m"
+	timeFrom = "now() - 5m"
 	timeTo = "now()"
 	limit = str(1000)
 
@@ -53,7 +53,7 @@ def retrieve_flow_entries_from_influxdb():
 	rawlist=[]
 	#process data 
 	flowlist = {}
-	dst_ip = '129.94.5.85'
+	dst_ip = '129.94.5.92'
 	dst_port = sys.argv[2]
 	dst_port_list = []
 	i = 0
@@ -106,6 +106,10 @@ def retrieve_flow_entries_from_influxdb():
 	#print rawlist
 	with open('out.txt', 'w') as f:
 		print ('time,bytes,pkts,duration,srcIp,srcPort,dstIp,dstPort\n')
+		for entry in rawlist:
+			f.write(entry)
+	with open('out_all.txt', 'a') as f:
+		f.write ('time,bytes,pkts,duration,srcIp,srcPort,dstIp,dstPort\n')
 		for entry in rawlist:
 			f.write(entry)
 #	f.close()

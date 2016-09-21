@@ -1,0 +1,20 @@
+close firefox
+sp.call(["killal", "-9","firefox-bin"])
+
+
+close firefox and tab
+sudo apt-get install wmctrl xdotool
+
+val = sp.call("wmctrl -a firefox; xdotool key Ctrl+w; wmctrl -r firefox -b add,shaded",shell= True)
+
+
+1080p video 
+
+Use magic actions instead of url setting (obsoleted in 2014)
+
+
+go to firefox
+about:config
+set max_resumed_crash to be 0
+
+
