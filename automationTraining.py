@@ -72,9 +72,10 @@ def loopThroughVideoList(videoList,tag):
 			time.sleep(10)
 		
 		################ close firefox #######################
-		child.kill()
-		child.terminate()
-
+		# child.kill()
+		# child.terminate()
+		val = sp.call(["killall", "-9","firefox-bin"])
+		print val
 		################ wait for the auto erasing to erase the current flow info #########################
 		#time.sleep(30)
 
