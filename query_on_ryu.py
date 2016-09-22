@@ -58,6 +58,7 @@ def retrieve_flow_entries_from_influxdb():
 	dst_port_list = []
 	i = 0
 	j = 0
+	port_diff = 20
 	for entry in values:
 		print entry
 		if entry[index_dst_ip]==dst_ip and entry[index_dst_port]==dst_port:
@@ -72,7 +73,7 @@ def retrieve_flow_entries_from_influxdb():
 			for j in range(len(values[i+1:])):
 #				print values[j]				
 				if values[j][index_time]==t:
-					if int(values[j][index_dst_port])<int(dst_port)+3 and int(values[j][index_dst_port])>int(dst_port)-3:
+					if int(values[j][index_dst_port])<int(dst_port)+port_diff and int(values[j][index_dst_port])>int(dst_port)-port_diff:
 						byte_count=byte_count+values[j][index_byte_count]
 						packet_count=packet_count+values[j][index_packet_count]
 						break

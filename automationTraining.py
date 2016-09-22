@@ -15,19 +15,24 @@ import time
 #fo.write('')
 #fo.close()
 youtube_content = []
+youtube360_content = []
 #,"https://www.youtube.com/watch?v=O9F5Yk1WOKo","https://www.youtube.com/watch?v=Iwt08oPbX5A","https://www.youtube.com/watch?v=Eho8HDtkCiU","https://www.youtube.com/watch?v=k2GnFFajzTA","https://www.youtube.com/watch?v=H9vevyszht4","https://www.youtube.com/watch?v=xS4RPj7IPGM","https://www.youtube.com/watch?v=qdKqn32kUKU","https://www.youtube.com/watch?v=mRq5nzWbZNg","https://www.youtube.com/watch?v=LGlipVxtvbM","https://www.youtube.com/watch?v=KUiDyQxHHk0","https://www.youtube.com/watch?v=50GBci6ToVA&list=PLKkDjgBOPjWHvsizaCkXLN9HDtl3kU_Yw"
 #360 ,"https://www.youtube.com/watch?v=ETvHZ8ITSdQ&index=2&list=PLm6qoFmp6K51Kne3BQo8_aN0s54y2jGfx","https://www.youtube.com/watch?v=YAWy4LjS4Fc","https://www.youtube.com/watch?v=ckDHQQ7PXCo","https://www.youtube.com/watch?v=tM6_n9VwLQM","https://www.youtube.com/watch?v=iDfsGX5pCHk&list=PLU8wpH_LfhmvMokgsfQtiHNsP96bU7cnr&index=9","https://www.youtube.com/watch?v=9ngmwMVDIx8&list=PLU8wpH_LfhmvMokgsfQtiHNsP96bU7cnr&index=12","https://www.youtube.com/watch?v=H2Jc1wHlhEU&list=PLU8wpH_LfhmvMokgsfQtiHNsP96bU7cnr&index=29"
 with open('youtube1080ids', 'r') as f:
 	youtube_content = f.readlines()
+with open('youtube360degree', 'r') as f:
+	youtube360_content = f.readlines()	
 youtube_prefix = "https://www.youtube.com/watch?v="
 
-YoutubeList=["https://www.youtube.com/watch?v=WQ2c9DB3EnU","https://www.youtube.com/watch?v=OvSG1EimSIs","https://www.youtube.com/watch?v=O9F5Yk1WOKo","https://www.youtube.com/watch?v=Iwt08oPbX5A","https://www.youtube.com/watch?v=Eho8HDtkCiU","https://www.youtube.com/watch?v=k2GnFFajzTA","https://www.youtube.com/watch?v=H9vevyszht4","https://www.youtube.com/watch?v=xS4RPj7IPGM","https://www.youtube.com/watch?v=qdKqn32kUKU","https://www.youtube.com/watch?v=mRq5nzWbZNg","https://www.youtube.com/watch?v=LGlipVxtvbM","https://www.youtube.com/watch?v=KUiDyQxHHk0","https://www.youtube.com/watch?v=50GBci6ToVA&list=PLKkDjgBOPjWHvsizaCkXLN9HDtl3kU_Yw"]
+# YoutubeList=["https://www.youtube.com/watch?v=WQ2c9DB3EnU","https://www.youtube.com/watch?v=OvSG1EimSIs","https://www.youtube.com/watch?v=O9F5Yk1WOKo","https://www.youtube.com/watch?v=Iwt08oPbX5A","https://www.youtube.com/watch?v=Eho8HDtkCiU","https://www.youtube.com/watch?v=k2GnFFajzTA","https://www.youtube.com/watch?v=H9vevyszht4","https://www.youtube.com/watch?v=xS4RPj7IPGM","https://www.youtube.com/watch?v=qdKqn32kUKU","https://www.youtube.com/watch?v=mRq5nzWbZNg","https://www.youtube.com/watch?v=LGlipVxtvbM","https://www.youtube.com/watch?v=KUiDyQxHHk0","https://www.youtube.com/watch?v=50GBci6ToVA&list=PLKkDjgBOPjWHvsizaCkXLN9HDtl3kU_Yw"]
 
-TszList=["https://www.youtube.com/watch?v=Qd6EaMd37jA&index=1&list=PLm6qoFmp6K51Kne3BQo8_aN0s54y2jGfx","https://www.youtube.com/watch?v=ETvHZ8ITSdQ&index=2&list=PLm6qoFmp6K51Kne3BQo8_aN0s54y2jGfx","https://www.youtube.com/watch?v=YAWy4LjS4Fc","https://www.youtube.com/watch?v=ckDHQQ7PXCo","https://www.youtube.com/watch?v=tM6_n9VwLQM","https://www.youtube.com/watch?v=iDfsGX5pCHk&list=PLU8wpH_LfhmvMokgsfQtiHNsP96bU7cnr&index=9","https://www.youtube.com/watch?v=9ngmwMVDIx8&list=PLU8wpH_LfhmvMokgsfQtiHNsP96bU7cnr&index=12","https://www.youtube.com/watch?v=H2Jc1wHlhEU&list=PLU8wpH_LfhmvMokgsfQtiHNsP96bU7cnr&index=29"]
+# TszList=["https://www.youtube.com/watch?v=Qd6EaMd37jA&index=1&list=PLm6qoFmp6K51Kne3BQo8_aN0s54y2jGfx","https://www.youtube.com/watch?v=ETvHZ8ITSdQ&index=2&list=PLm6qoFmp6K51Kne3BQo8_aN0s54y2jGfx","https://www.youtube.com/watch?v=YAWy4LjS4Fc","https://www.youtube.com/watch?v=ckDHQQ7PXCo","https://www.youtube.com/watch?v=tM6_n9VwLQM","https://www.youtube.com/watch?v=iDfsGX5pCHk&list=PLU8wpH_LfhmvMokgsfQtiHNsP96bU7cnr&index=9","https://www.youtube.com/watch?v=9ngmwMVDIx8&list=PLU8wpH_LfhmvMokgsfQtiHNsP96bU7cnr&index=12","https://www.youtube.com/watch?v=H2Jc1wHlhEU&list=PLU8wpH_LfhmvMokgsfQtiHNsP96bU7cnr&index=29"]
 
 inspectedIpList=list()
 
-def loopThroughVideoList(videoList,tag):
+def loopThroughVideoList(videoList):
+	myIp = u'129.94.5.92'
+	j = 0 
 	for video in videoList:
 		video = youtube_prefix + video
 		################## open firefox ###################	
@@ -38,26 +43,49 @@ def loopThroughVideoList(videoList,tag):
 		######## get the srcIp and dstPort ####################
 		srcIp=''
 		dstPort=70000 # in order to find the smallest port, set the initial value bigger than any possible port number
+		# print(srcIp,dstPort)
+		if j % 2 == 0:
+			tag = 1
+		else:
+			tag = 2
+		i = 0 ### loop parameter
+		j = j + 1
 
-		i=0 ### loop parameter
 		while srcIp == '' and i < 10:
 			r = requests.get(url='http://129.94.5.44:8080/stats/controller')
 			jsonObject = r.json()
 
 			flows = jsonObject.get('flows')
 			for flowDict in flows:
-				if flowDict['isVideo'] == True:
-					tempsrcIp = flowDict['srcIp']
-					if tempsrcIp not in inspectedIpList:
-						srcIp=tempsrcIp
-					#print(flowDict)
+				#print flowDict
+				if flowDict['isVideo'] == True: 
+					# print flowDict['dstIp']
+					# print myIp
+					# print flowDict['dstIp'] == myIp
+					if flowDict['dstIp'] == myIp and flowDict['duration']<30:
 
-			stats = jsonObject.get('stats')
-			for sd in stats:
-				if sd['sourceIP'] == srcIp and sd['tp_dst'] <= dstPort :
-					dstPort = sd['tp_dst']
+						srcIp = flowDict['srcIp']
+						#if tempsrcIp not in inspectedIpList:
+						# 	srcIp=tempsrcIp
+						#print(flowDict)
+
+						stats = jsonObject.get('stats')
+						potentialVideos = []
+						for sd in stats:
+							if sd['sourceIP'] == srcIp:
+								potentialVideos.append(sd)
+								#dstPort = sd['tp_dst']
+						print "--------------potentialVideos-----------"	
+						maxbytes = 0						
+						for vd in potentialVideos:
+							print vd
+							if vd['byte'] > maxbytes:
+								maxbytes = vd['byte']
+								dstPort = vd['tp_dst']
+
+						print dstPort
 					#print(sd)
-
+			print(srcIp,dstPort)
 			i=i+1
 			time.sleep(5)
 
@@ -65,35 +93,54 @@ def loopThroughVideoList(videoList,tag):
 			print("can't get srcIp or dstPort")
 			os.system("wmctrl -a firefox; xdotool key Ctrl+w; wmctrl -r firefox -b add,shaded")
 			#sys.exit(0)
-			pass
+			continue
 	
-		inspectedIpList.append(srcIp)
-		print(srcIp,dstPort)
+		# inspectedIpList.append(srcIp)
 
 		################## execute the query_on_ryu.py to get the real time summary info ################
 		for x in range(7):
 			executeQueryStr = "python query_on_ryu.py {} {} {}".format(srcIp,dstPort,tag)
 			os.system(executeQueryStr)
+			print '------The Above calculation is based on this Ip and Port-----'
+			print(srcIp,dstPort)
+			if tag == 1:
+				print '---------------YouTube 1080p---------------'
+			else:
+				print '---------------360 Degree 1080s------------'
+			if x == 6:
+				os.system("wmctrl -a firefox; xdotool key Ctrl+w; wmctrl -r firefox -b add,shaded")
 			time.sleep(10)
 		
 		################ close firefox #######################
 		# child.kill()
 		# child.terminate()
 		#val = 
-		os.system("wmctrl -a firefox; xdotool key Ctrl+w; wmctrl -r firefox -b add,shaded")
+		#os.system("wmctrl -a firefox; xdotool key Ctrl+w; wmctrl -r firefox -b add,shaded")
+		time.sleep(30)
+		
 		#os.system("killall -9 firefox")
 		#print val
 		################ wait for the auto erasing to erase the current flow info #########################
-		#time.sleep(30)
+		
 
+content = []
+lenYT = len(youtube_content)
+len360 = len(youtube360_content)
 
-loopThroughVideoList(youtube_content,1)
+if len360 == lenYT:
+	for i in range(len360):
+		content.append(youtube_content[i])
+		content.append(youtube360_content[i])
+		
+#print content 
+# i%2 == 0 tag 1; i%2 == 1 tag 2 
+loopThroughVideoList(content)
 # loopThroughVideoList(TszList,2)
 
 #call_training_program_string = "python sixFeatureTeleSVMImpl.py out_summary.txt"
 #os.system(call_training_program_string)
 
-os.system("sudo shutdown -h now")
+#os.system("sudo shutdown -h now")
 
 
 
