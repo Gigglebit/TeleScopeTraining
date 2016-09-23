@@ -1,0 +1,21 @@
+For all the raw data: 
+time,bytes,pkts,duration,srcIp,srcPort,dstIp,dstPort
+
+For all the summary:
+mu, sigma1, sigma2, sigma4, sigma8, sigma16, duration, label
+
+
+Labels:
+
+Youtube Video
+480p
+1080p
+2160p
+
+360Degree Video
+1080s60
+2160s60
+
+Google Drive
+gDrive
+
