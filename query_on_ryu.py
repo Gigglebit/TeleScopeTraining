@@ -2,6 +2,9 @@ from influxdb import InfluxDBClient
 import dateutil.parser as dp
 import sys
 import numpy as np
+import datetime
+
+
 
 #configurable DB
 INFLUXDB_DB = "flowBucket"
@@ -129,7 +132,7 @@ def retrieve_flow_entries_from_influxdb():
 
 def calculate_sigma(B,j,mu):
 	#print "--------method 1 mod %s--------" %(j)
-	m1 = np.sqrt(np.sum(np.power((B/j-mu),2))/B.size)
+	m1 = np.sqrt(np.sum(np.power((B/j-mu),2))/(B.size*mu))
 	#print m1
 	#print "--------method 2 mod %s --------" %(j)
 	m2 = np.sqrt(np.sum(np.power((B-mu),2))/(B.size*j))
@@ -226,8 +229,11 @@ def extract_features():
 	f1.append(sys.argv[3])#YouTube 1 / YouTube360 2
 	f2.append(sys.argv[3])
 	#print delta_bytes_mod16_list 
+	f1.append(sys.argv[4])
+	f1.append(datetime.datetime.now())
 	print f1
-	print f2
+	#print f2
+
         with open('out_summary.txt', 'a') as f:
              f.write(','.join(str(e) for e in f1))
 	     f.write('\n')
