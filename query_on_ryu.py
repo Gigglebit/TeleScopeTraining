@@ -147,6 +147,8 @@ def extract_features():
 		return 
 	prev_entry = "" 
 	delta_t_list = []
+	delta_bytes = 0
+	delta_pkts = 0
 	delta_bytes_list = []
 	delta_bytes_mod2_list = []
 	delta_bytes_mod4_list = []
@@ -167,6 +169,22 @@ def extract_features():
 			#print entry.split(',')[0]
 
 			delta_t = int(entry.split(',')[0])-int(init_t)
+			while delta_t - i > 0:
+				delta_t_list.append(i)
+				delta_bytes_list.append(delta_bytes)
+				delta_pkts_list.append(delta_pkts)
+				sum_pkts = sum_pkts + delta_pkts
+				sum_bytes = sum_bytes + delta_bytes
+	                        if i % 2 == 0:
+        	                        delta_bytes_mod2_list.append(delta_bytes_list[i-1]+delta_bytes_list[i-2])
+                	        if i % 4 == 0:
+#                               print delta_bytes_mod2_list
+                        	        delta_bytes_mod4_list.append(delta_bytes_mod2_list[i/2-1]+delta_bytes_mod2_list[i/2-2])
+                        	if i % 8 == 0:
+                                	delta_bytes_mod8_list.append(delta_bytes_mod4_list[i/4-1]+delta_bytes_mod4_list[i/4-2])
+                        	if i % 16 == 0:
+                                	delta_bytes_mod16_list.append(delta_bytes_mod8_list[i/8-1]+delta_bytes_mod8_list[i/8-2])
+				i = i + 1
 
 			delta_bytes = int(entry.split(',')[1])-int(prev_entry.split(',')[1])
 			delta_pkts = int(entry.split(',')[2])-int(prev_entry.split(',')[2])
