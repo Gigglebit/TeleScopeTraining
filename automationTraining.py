@@ -38,7 +38,7 @@ with open('gDriveFileID','r') as f:
 inspectedIpList=list()
 
 def loopThroughVideoList(videoList):
-	myIp = u'129.94.5.85'
+	myIp = u'129.94.5.92'
 	j = 0 
 
 	YTtag=0
@@ -141,7 +141,7 @@ def loopThroughVideoList(videoList):
 		
 
 def gDriveDownloadFunction():
-	myIp = u'129.94.5.85'
+	myIp = u'129.94.5.92'
 	NonYTtag=0
 	for id in gDriveID:
 		##start downloading###
@@ -251,20 +251,22 @@ for i in range(lenYT):
 #print content 
 # i%2 == 0 tag 1; i%2 == 1 tag 2 
 
-loopThroughVideoList(content)
+while True:
+	loopThroughVideoList(content)
 
 # loopThroughVideoList(TszList,2)
+	gDriveDownloadFunction()
+	gDriveDownloadFunction()
+	gDriveDownloadFunction()
+	gDriveDownloadFunction()
+	gDriveDownloadFunction()
 
-gDriveDownloadFunction()
 
-gDriveDownloadFunction()
 #call_training_program_string = "python sixFeatureTeleSVMImpl.py out_summary.txt"
 #os.system(call_training_program_string)
 
 #os.system("sudo shutdown -h now")
 
-
-##https://drive.google.com/open?id=0B_gon-PYFdP_cFJ5UmJXNGpvVDQ
 
 
 

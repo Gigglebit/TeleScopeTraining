@@ -56,7 +56,7 @@ def retrieve_flow_entries_from_influxdb():
 	rawlist=[]
 	#process data 
 	flowlist = {}
-	dst_ip = '129.94.5.85'
+	dst_ip = '129.94.5.92'
 	dst_port = sys.argv[2]
 	dst_port_list = []
 	i = 0
