@@ -19,12 +19,12 @@ youtube360_content = []
 gDriveID = []
 #,"https://www.youtube.com/watch?v=O9F5Yk1WOKo","https://www.youtube.com/watch?v=Iwt08oPbX5A","https://www.youtube.com/watch?v=Eho8HDtkCiU","https://www.youtube.com/watch?v=k2GnFFajzTA","https://www.youtube.com/watch?v=H9vevyszht4","https://www.youtube.com/watch?v=xS4RPj7IPGM","https://www.youtube.com/watch?v=qdKqn32kUKU","https://www.youtube.com/watch?v=mRq5nzWbZNg","https://www.youtube.com/watch?v=LGlipVxtvbM","https://www.youtube.com/watch?v=KUiDyQxHHk0","https://www.youtube.com/watch?v=50GBci6ToVA&list=PLKkDjgBOPjWHvsizaCkXLN9HDtl3kU_Yw"
 #360 ,"https://www.youtube.com/watch?v=ETvHZ8ITSdQ&index=2&list=PLm6qoFmp6K51Kne3BQo8_aN0s54y2jGfx","https://www.youtube.com/watch?v=YAWy4LjS4Fc","https://www.youtube.com/watch?v=ckDHQQ7PXCo","https://www.youtube.com/watch?v=tM6_n9VwLQM","https://www.youtube.com/watch?v=iDfsGX5pCHk&list=PLU8wpH_LfhmvMokgsfQtiHNsP96bU7cnr&index=9","https://www.youtube.com/watch?v=9ngmwMVDIx8&list=PLU8wpH_LfhmvMokgsfQtiHNsP96bU7cnr&index=12","https://www.youtube.com/watch?v=H2Jc1wHlhEU&list=PLU8wpH_LfhmvMokgsfQtiHNsP96bU7cnr&index=29"
-with open('youtube1080ids', 'r') as f:
 #with open('youtube1080ids', 'r') as f:
+with open('youtubeAllResolutionids', 'r') as f:
 	youtube_content = f.readlines()
-with open('youtube360degree', 'r') as f:
-#with open('temp360Test', 'r') as f:
-	youtube360_content = f.readlines()	
+# with open('youtube360degree', 'r') as f:
+# #with open('temp360Test', 'r') as f:
+# 	youtube360_content = f.readlines()	
 youtube_prefix = "https://www.youtube.com/watch?v="
 
 with open('gDriveFileID','r') as f:
@@ -57,18 +57,27 @@ def loopThroughVideoList(videoList):
 		# 	tag = 1
 		# else:
 		# 	tag = 2
+<<<<<<< HEAD
 		#tag=42
 
 		##change to ,tag 1 stands for 360p, tag 2 720p, tag 3 1440ps
+=======
+>>>>>>> 51d6bac47bf835ad0c084e2942b7306c0ce5f1df
 		if j<5:
 			tag=1
 		elif j>=5 and j<10:
 			tag=2
+<<<<<<< HEAD
 		elif j>=10 and j<=15:
 			tag=3
 		else:
 			print "tag error"
 
+=======
+		elif j>=10:
+			tag=3
+		#tag=4
+>>>>>>> 51d6bac47bf835ad0c084e2942b7306c0ce5f1df
 		i = 0 ### loop parameter
 		j = j + 1
 
@@ -249,19 +258,28 @@ def gDriveDownloadFunction():
 
 
 content = []
+<<<<<<< HEAD
 
 # comment this part use only 3607201440ids
 # lenYT = len(youtube_content)
 # len360 = len(youtube360_content)
 
+=======
+lenYT = len(youtube_content)
+# len360 = len(youtube360_content)
+
+>>>>>>> 51d6bac47bf835ad0c084e2942b7306c0ce5f1df
 # if len360 == lenYT:
 # 	for i in range(len360):
 # 		content.append(youtube_content[i])
 # 		content.append(youtube360_content[i])
+<<<<<<< HEAD
 
 with open('3607201440pids', 'r') as f:
 #with open('youtube1080ids', 'r') as f:
 	content = f.readlines()
+=======
+>>>>>>> 51d6bac47bf835ad0c084e2942b7306c0ce5f1df
 
 #for i in range(lenYT):
 #	content.append(youtube_content[i])
@@ -269,15 +287,25 @@ with open('3607201440pids', 'r') as f:
 #print content 
 # i%2 == 0 tag 1; i%2 == 1 tag 2 
 
-while True:
-	loopThroughVideoList(content)
+tempCount = 0
 
+while tempCount < 10:
+	loopThroughVideoList(content)
+	tempCount += 1
 # loopThroughVideoList(TszList,2)
+<<<<<<< HEAD
 	#gDriveDownloadFunction()
 	#gDriveDownloadFunction()
 	#gDriveDownloadFunction()
 	#gDriveDownloadFunction()
 	#gDriveDownloadFunction()
+=======
+	# gDriveDownloadFunction()
+	# gDriveDownloadFunction()
+	# gDriveDownloadFunction()
+	# gDriveDownloadFunction()
+	# gDriveDownloadFunction()
+>>>>>>> 51d6bac47bf835ad0c084e2942b7306c0ce5f1df
 
 
 #call_training_program_string = "python sixFeatureTeleSVMImpl.py out_summary.txt"
