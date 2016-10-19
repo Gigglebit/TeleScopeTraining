@@ -249,12 +249,25 @@ def extract_features():
 	#print delta_bytes_mod16_list 
 	f1.append(sys.argv[4])
 	f1.append(datetime.datetime.now())
+	tag = sys.argv[3]
+	print '------mu---::',(mu/1000)
+	print 'tag:',tag
 	print f1
 	#print f2
-
-        with open('out_summary.txt', 'a') as f:
-             f.write(','.join(str(e) for e in f1))
-	     f.write('\n')
+	if tag == '1' and (mu/1000) > 50:
+		with open('out_summary.txt', 'a') as f:
+			f.write(','.join(str(e) for e in f1))
+			f.write('\n')
              #f.write(','.join(str(e) for e in f2))
+	elif tag =='2' and (mu/1000) >187:
+		with open('out_summary.txt', 'a') as f:
+			f.write(','.join(str(e) for e in f1))
+			f.write('\n')
+	elif tag =='3' and (mu/1000) >750:
+		with open('out_summary.txt', 'a') as f:
+			f.write(','.join(str(e) for e in f1))
+			f.write('\n')
+
+
 retrieve_flow_entries_from_influxdb()
 extract_features()

@@ -28,7 +28,7 @@ with open('youtube360degree', 'r') as f:
 youtube_prefix = "https://www.youtube.com/watch?v="
 
 with open('gDriveFileID','r') as f:
-	gDriveID=f.readlines()
+	gDriveID=f.readlines() 
 
 
 # YoutubeList=["https://www.youtube.com/watch?v=WQ2c9DB3EnU","https://www.youtube.com/watch?v=OvSG1EimSIs","https://www.youtube.com/watch?v=O9F5Yk1WOKo","https://www.youtube.com/watch?v=Iwt08oPbX5A","https://www.youtube.com/watch?v=Eho8HDtkCiU","https://www.youtube.com/watch?v=k2GnFFajzTA","https://www.youtube.com/watch?v=H9vevyszht4","https://www.youtube.com/watch?v=xS4RPj7IPGM","https://www.youtube.com/watch?v=qdKqn32kUKU","https://www.youtube.com/watch?v=mRq5nzWbZNg","https://www.youtube.com/watch?v=LGlipVxtvbM","https://www.youtube.com/watch?v=KUiDyQxHHk0","https://www.youtube.com/watch?v=50GBci6ToVA&list=PLKkDjgBOPjWHvsizaCkXLN9HDtl3kU_Yw"]
@@ -53,11 +53,22 @@ def loopThroughVideoList(videoList):
 		srcIp=''
 		dstPort=70000 # in order to find the smallest port, set the initial value bigger than any possible port number
 		print(srcIp,dstPort)
-		if j % 2 == 0:
-			tag = 1
+		# if j % 2 == 0:
+		# 	tag = 1
+		# else:
+		# 	tag = 2
+		#tag=42
+
+		##change to ,tag 1 stands for 360p, tag 2 720p, tag 3 1440ps
+		if j<5:
+			tag=1
+		elif j>=5 and j<10:
+			tag=2
+		elif j>=10 and j<=15:
+			tag=3
 		else:
-			tag = 2
-		#tag=4
+			print "tag error"
+
 		i = 0 ### loop parameter
 		j = j + 1
 
@@ -119,10 +130,11 @@ def loopThroughVideoList(videoList):
 			os.system(executeQueryStr)
 			print '------The Above calculation is based on this Ip and Port-----'
 			print(srcIp,dstPort)
-			if tag == 1:
-				print '---------------YouTube 1080p---------------'
-			else:
-				print '---------------360 Degree 1080s------------'
+			# if tag == 1:
+			# 	print '---------------YouTube 1080p---------------'
+			# else:
+			# 	print '---------------360 Degree 1080s------------'
+			print '----------------video--------------------------'
 			if x == 6:
 				os.system("wmctrl -a firefox; xdotool key Ctrl+w; wmctrl -r firefox -b add,shaded")
 			time.sleep(10)
@@ -237,16 +249,22 @@ def gDriveDownloadFunction():
 
 
 content = []
-lenYT = len(youtube_content)
-len360 = len(youtube360_content)
 
-if len360 == lenYT:
-	for i in range(len360):
-		content.append(youtube_content[i])
-		content.append(youtube360_content[i])
+# comment this part use only 3607201440ids
+# lenYT = len(youtube_content)
+# len360 = len(youtube360_content)
 
-for i in range(lenYT):
-	content.append(youtube_content[i])
+# if len360 == lenYT:
+# 	for i in range(len360):
+# 		content.append(youtube_content[i])
+# 		content.append(youtube360_content[i])
+
+with open('3607201440pids', 'r') as f:
+#with open('youtube1080ids', 'r') as f:
+	content = f.readlines()
+
+#for i in range(lenYT):
+#	content.append(youtube_content[i])
 		
 #print content 
 # i%2 == 0 tag 1; i%2 == 1 tag 2 
@@ -255,11 +273,11 @@ while True:
 	loopThroughVideoList(content)
 
 # loopThroughVideoList(TszList,2)
-	gDriveDownloadFunction()
-	gDriveDownloadFunction()
-	gDriveDownloadFunction()
-	gDriveDownloadFunction()
-	gDriveDownloadFunction()
+	#gDriveDownloadFunction()
+	#gDriveDownloadFunction()
+	#gDriveDownloadFunction()
+	#gDriveDownloadFunction()
+	#gDriveDownloadFunction()
 
 
 #call_training_program_string = "python sixFeatureTeleSVMImpl.py out_summary.txt"
