@@ -11,7 +11,8 @@ from sklearn.model_selection import StratifiedKFold
 
 df=pd.read_csv(sys.argv[1])
 #'mean_rate', try without mean_rate
-df.columns=['sigma1','sigma2','sigma4','sigma8','sigma16','duration','class']
+#,'duration'
+df.columns=['mean_rate','sigma1','sigma2','sigma4','sigma8','sigma16','class']
 #df.replace('nan',-99999,inplace=True)
 #df.drop(['id'],1,inplace=True)
 
@@ -86,7 +87,7 @@ for C in C_2d_range:
 ### linear is better
 
 
-##########test for poly and rbf
+# #########test for poly and rbf
 # C_2d_range = [1e-2,1e-1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2,3,4,5,6,7,
 # 8,9,1e1,1e2]
 # #1e-1,0.5, 1,1.5,
@@ -96,7 +97,7 @@ for C in C_2d_range:
 #     for gamma in gamma_2d_range:
 # 		#,class_weight={1:0.5,2:0.5,3:1}
 # 	    #clf = svm.SVC(C=C,kernel='linear',decision_function_shape='ovo')
-# 	    clf = svm.SVC(C=C,gamma=gamma,kernel='poly',decision_function_shape='ovo',degree=5)
+# 	    clf = svm.SVC(C=C,gamma=gamma,kernel='rbf',decision_function_shape='ovo',degree=5)
 # 	    #clf=svm.LinearSVC(C=C,multi_class='ovr')
 # 	    # predicted = cross_val_predict(clf, X, y, cv=10)
 # 	    # temp=metrics.accuracy_score(y, predicted) 
