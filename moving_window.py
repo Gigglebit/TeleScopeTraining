@@ -35,16 +35,18 @@ def retrieve_flow_entries_from_influxdb(src_ip,dst_ip,dst_port):
 	limit = str(1000)
 	duration = 0
 	terminating_counter = 0
-	while (duration < 128):
+	while (duration < 16):
 		result = client.query("SELECT * FROM flowStat WHERE time > "+ timeFrom +" AND time < " + timeTo + " AND src_ip = \'" + src_ip + "\' ORDER BY time ASC LIMIT "+ limit+ " ;")
 		values = result.raw["series"][0]["values"]
 		columns = result.raw["series"][0]["columns"]
 		index_duration = columns.index("duration")
 		duration = values[-1][index_duration]
+
 		if (terminating_counter > 10):
 			return -1
 		terminating_counter = terminating_counter + 1
-
+		print "Waiting for another 16 seconds"
+		print duration
 		time.sleep(16)
 #	result = client.query("SELECT * FROM flowStat WHERE time > "+ timeFrom +" AND time < " + timeTo + " ORDER BY time ASC LIMIT "+ limit+ " ;")
 
@@ -78,36 +80,41 @@ def retrieve_flow_entries_from_influxdb(src_ip,dst_ip,dst_port):
 
 	for entry in values:
 		print entry
-		if entry[index_duration] <= 128:
-			if entry[index_dst_ip]==dst_ip and entry[index_dst_port]==dst_port:
-				row = ''
-			#print entry[0]
+		if entry[index_duration] <= 16:
+			print 'fuck'
+			if entry[index_dst_ip]==dst_ip: 
+				print 'fuck this'
+				if entry[index_dst_port]==dst_port:
+					print 'fuck this three'
+					row = ''
+				#print entry[0]
 
-				t = entry[index_time]
-				byte_count = entry[index_byte_count]
-				packet_count = entry[index_packet_count]
-				
-	#			print len(values)
-				for j in range(len(values[i+1:])):
-	#				print values[j]				
-					if values[j][index_time]==t:
-						if int(values[j][index_dst_port])<int(dst_port)+port_diff and int(values[j][index_dst_port])>int(dst_port)-port_diff:
-							byte_count=byte_count+values[j][index_byte_count]
-							packet_count=packet_count+values[j][index_packet_count]
-							break
-					else:
-						break	
-				parsed_t = dp.parse(t)
-				t_in_seconds = parsed_t.strftime('%s')
-				row = t_in_seconds+','+str(entry[index_byte_count])+','+str(entry[index_packet_count])+','+str(entry[index_duration])+','+entry[index_src_ip]+','+entry[index_src_port]+','+entry[index_dst_ip]+','+entry[index_dst_port]+'\n'
-				# if entry missing:
-				while (entry[index_duration] - previous_duration) > 1:
-					rawlist.append(row)
-					previous_duration = previous_duration + 1
+					t = entry[index_time]
+					byte_count = entry[index_byte_count]
+					packet_count = entry[index_packet_count]
 					
+		#			print len(values)	
+					for j in range(len(values[i+1:])):
+		#				print values[j]				
+						if values[j][index_time]==t:
+							if int(values[j][index_dst_port])<int(dst_port)+port_diff and int(values[j][index_dst_port])>int(dst_port)-port_diff:
+								byte_count=byte_count+values[j][index_byte_count]
+								packet_count=packet_count+values[j][index_packet_count]
+								break
+		# 				else:
+		# 					break	
+					parsed_t = dp.parse(t)
+					t_in_seconds = parsed_t.strftime('%s')
+					row = t_in_seconds+','+str(entry[index_byte_count])+','+str(entry[index_packet_count])+','+str(entry[index_duration])+','+entry[index_src_ip]+','+entry[index_src_port]+','+entry[index_dst_ip]+','+entry[index_dst_port]+'\n'
+					# if entry missing:
+					while (entry[index_duration] - previous_duration) > 1:
+						rawlist.append(row)
+						previous_duration = previous_duration + 1
+						
 
-				rawlist.append(row)
-				previous_duration = entry[index_duration]
+					rawlist.append(row)
+					print "rawlist:"+row
+					previous_duration = entry[index_duration] 	
 			#cookie =  entry[index_cookie]
 			#byte_count = entry[index_byte_count]
 			#time = entry[index_time]
@@ -121,7 +128,7 @@ def retrieve_flow_entries_from_influxdb(src_ip,dst_ip,dst_port):
 				#flowlist[cookie]["src_ip"] = entry[index_src_ip]
 				#flowlist[cookie]["byte_count"].append(byte_count)
 				#flowlist[cookie]["time"].append(time)
-			i = i + 1
+		i = i + 1
 	print 'Available dst_port numbers are'
 	print dst_port_list
 
@@ -135,7 +142,8 @@ def retrieve_flow_entries_from_influxdb(src_ip,dst_ip,dst_port):
 	# 		f.write(entry)
 	with open('out_detail.txt', 'w') as f:
 		# f.write ('time,bytes,pkts,duration,srcIp,srcPort,dstIp,dstPort\n')
-		f.write ('------------- entry src:%s,entry dst: %s:%s ----------------' % src_ip,dst_ip,dstPort)
+		f.write ('------------- entry src:%s,entry dst: %s:%s ----------------' % (src_ip,dst_ip,dst_port))
+		print rawlist
 		for entry in rawlist:
 			f.write(entry)
 #	f.close()
