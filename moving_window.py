@@ -267,12 +267,12 @@ def extract_better_features(start, end, tag, desctag):
 	f2.append(m2)
 	f1.append(duration)
 	f2.append(duration)
-	f1.append(sys.argv[3])#YouTube 1 / YouTube360 2
-	f2.append(sys.argv[3])
+	f1.append(tag)#YouTube 1 / YouTube360 2
+	f2.append(tag)
 	#print delta_bytes_mod16_list 
-	f1.append(sys.argv[4])
+	f1.append(desctag)
 	f1.append(datetime.datetime.now())
-	tag = sys.argv[3]
+	tag = tag
 	print '------mu---::',(mu/1000)
 	print 'tag:',tag
 	print f1
