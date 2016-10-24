@@ -4,7 +4,7 @@ import sys
 import numpy as np
 import datetime
 
-
+import time
 
 #configurable DB
 INFLUXDB_DB = "flowBucket"
@@ -45,7 +45,7 @@ def retrieve_flow_entries_from_influxdb(src_ip,dst_ip,dst_port):
 			return -1
 		terminating_counter = terminating_counter + 1
 
-		sleep(16)
+		time.sleep(16)
 #	result = client.query("SELECT * FROM flowStat WHERE time > "+ timeFrom +" AND time < " + timeTo + " ORDER BY time ASC LIMIT "+ limit+ " ;")
 
 #	print (result)
@@ -316,7 +316,7 @@ import json
 import requests
 #import webbrowser
 import subprocess as sp
-import time
+
 import signal
 # read from 129.94.5.44:8080/stats/controller
 # r = requests.get('https://github.com/timeline.json')
@@ -331,8 +331,9 @@ gDriveID = []
 #,"https://www.youtube.com/watch?v=O9F5Yk1WOKo","https://www.youtube.com/watch?v=Iwt08oPbX5A","https://www.youtube.com/watch?v=Eho8HDtkCiU","https://www.youtube.com/watch?v=k2GnFFajzTA","https://www.youtube.com/watch?v=H9vevyszht4","https://www.youtube.com/watch?v=xS4RPj7IPGM","https://www.youtube.com/watch?v=qdKqn32kUKU","https://www.youtube.com/watch?v=mRq5nzWbZNg","https://www.youtube.com/watch?v=LGlipVxtvbM","https://www.youtube.com/watch?v=KUiDyQxHHk0","https://www.youtube.com/watch?v=50GBci6ToVA&list=PLKkDjgBOPjWHvsizaCkXLN9HDtl3kU_Yw"
 #360 ,"https://www.youtube.com/watch?v=ETvHZ8ITSdQ&index=2&list=PLm6qoFmp6K51Kne3BQo8_aN0s54y2jGfx","https://www.youtube.com/watch?v=YAWy4LjS4Fc","https://www.youtube.com/watch?v=ckDHQQ7PXCo","https://www.youtube.com/watch?v=tM6_n9VwLQM","https://www.youtube.com/watch?v=iDfsGX5pCHk&list=PLU8wpH_LfhmvMokgsfQtiHNsP96bU7cnr&index=9","https://www.youtube.com/watch?v=9ngmwMVDIx8&list=PLU8wpH_LfhmvMokgsfQtiHNsP96bU7cnr&index=12","https://www.youtube.com/watch?v=H2Jc1wHlhEU&list=PLU8wpH_LfhmvMokgsfQtiHNsP96bU7cnr&index=29"
 #with open('youtube1080ids', 'r') as f:
-with open('youtubeAllResolutionids', 'r') as f:
-	youtube_content = f.readlines()
+# with open('youtubeAllResolutionids', 'r') as f:
+# 	youtube_content = f.readlines()
+
 # with open('youtube360degree', 'r') as f:
 # #with open('temp360Test', 'r') as f:
 # 	youtube360_content = f.readlines()	
@@ -384,9 +385,9 @@ def loopThroughVideoList(videoList):
 			print "tag error"
 
 
-		elif j>=10:
-			tag=3
-		#tag=4
+		# elif j>=10:
+		# 	tag=3
+		#tag=4d 
 
 		i = 0 ### loop parameter
 		j = j + 1
@@ -444,7 +445,7 @@ def loopThroughVideoList(videoList):
 		dstIp = '129.94.5.92'
 		################## execute the query_on_ryu.py to get the real time summary info ################
 		#for x in range(7):
-		tempYTtag = str(YTtag)+str(x)
+		tempYTtag = str(YTtag)
 		retval = retrieve_flow_entries_from_influxdb(srcIp, dstIp, dstPort)
 		if (retval!=-1):
 			extract_better_features(1, 16, tag,'YT'+tempYTtag)
