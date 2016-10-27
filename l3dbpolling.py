@@ -5,7 +5,7 @@ from threading import Timer
 
 from influxdb import InfluxDBClient
 import csv,datetime
-
+import signal
 from time import mktime
 import json
 import requests
@@ -65,7 +65,7 @@ def dump_l3_flows(desctag):
 		index_duration = columns.index("duration")
 		duration = values[-1][index_duration]
 
-		if (terminating_counter > 10):
+		if (terminating_counter > 9):
 			return -1
 		terminating_counter = terminating_counter + 1
 
@@ -314,9 +314,10 @@ def loopThroughVideoList(videoList):
 			print("can't get flow stats")
 			os.system("wmctrl -a firefox; xdotool key Ctrl+w; wmctrl -r firefox -b add,shaded")
 			#sys.exit(0)
+			time.sleep(40)
 			continue
 	
-		
+		os.system("wmctrl -a firefox; xdotool key Ctrl+w; wmctrl -r firefox -b add,shaded")
 
 		if (retval!=-1):
 			print '---extract features---'
@@ -331,7 +332,7 @@ def loopThroughVideoList(videoList):
 
 		print '----------------video--------------------------'
 		#if x == 6:
-		os.system("wmctrl -a firefox; xdotool key Ctrl+w; wmctrl -r firefox -b add,shaded")
+		
 		time.sleep(10)
 		
 
@@ -357,9 +358,12 @@ def gDriveDownloadFunction(gDriveID):
 			p.kill()
 			p.terminate()
 			#sys.exit(0)
+			time.sleep(40)
 			continue
 	
-		
+		os.killpg(os.getpgid(p.pid), signal.SIGTERM)
+		p.kill()
+		p.terminate()		
 
 		if (retval!=-1):
 			print '---extract features---'
@@ -374,9 +378,7 @@ def gDriveDownloadFunction(gDriveID):
 
 		print '----------------Google Drive Download--------------------------'
 		#if x == 6:
-		os.killpg(os.getpgid(p.pid), signal.SIGTERM)
-		p.kill()
-		p.terminate()
+
 		time.sleep(10)
 		
 
@@ -399,8 +401,9 @@ if __name__ == "__main__":
 	#tempCount = 0
 
 	while 1:
-		loopThroughVideoList(content)
 		gDriveDownloadFunction(gDriveID)
+		loopThroughVideoList(content)
+		
 
 
 
