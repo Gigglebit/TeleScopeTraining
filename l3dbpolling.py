@@ -337,6 +337,53 @@ def loopThroughVideoList(videoList):
 
 		YTtag+=1
 		time.sleep(40)
+
+
+def gDriveDownloadFunction(gDriveID):
+	myIp = u'129.94.5.92'
+	NonYTtag=0
+	for id in gDriveID:
+		##start downloading###
+		exegDriveDownload = "python gDriveDownload.py "+id
+		#os.system(exegDriveDownload)
+		p = sp.Popen(exegDriveDownload,shell = True,preexec_fn=os.setsid)
+
+		#p = sp.Popen(['python','gDriveDownload.py',id])
+		tempNonYTtag = str(NonYTtag)
+		retval = dump_l3_flows(tempNonYTtag)
+		if retval == -1:
+			print("can't get flow stats")
+			os.killpg(os.getpgid(p.pid), signal.SIGTERM)
+			p.kill()
+			p.terminate()
+			#sys.exit(0)
+			continue
+	
+		
+
+		if (retval!=-1):
+			print '---extract features---'
+			extract_better_features(1, 18, 4,'GD'+tempNonYTtag)
+			extract_better_features(1, 34, 4,'GD'+tempNonYTtag)
+			extract_better_features(1, 50, 4,'GD'+tempNonYTtag)
+			extract_better_features(1, 66, 4,'GD'+tempNonYTtag)
+			extract_better_features(17, 82, 4,'GD'+tempNonYTtag)
+			extract_better_features(33, 98, 4,'GD'+tempNonYTtag)
+			extract_better_features(50, 114, 4,'GD'+tempNonYTtag)
+			extract_better_features(66, 130, 4,'GD'+tempNonYTtag)
+
+		print '----------------Google Drive Download--------------------------'
+		#if x == 6:
+		os.killpg(os.getpgid(p.pid), signal.SIGTERM)
+		p.kill()
+		p.terminate()
+		time.sleep(10)
+		
+
+		NonYTtag+=1
+		time.sleep(40)
+
+
 if __name__ == "__main__":
 	# tag = 1
 	# tempYTtag = "0"
@@ -345,9 +392,17 @@ if __name__ == "__main__":
 	with open('3607201440pids', 'r') as f:
 		content = f.readlines()
 
+	gDriveID = []
+	with open('gDriveFileID','r') as f:
+		gDriveID=f.readlines() 
+
 	#tempCount = 0
 
 	while 1:
 		loopThroughVideoList(content)
+		gDriveDownloadFunction(gDriveID)
+
+
+
 		#tempCount += 1
 	# dump_l3_flows()
