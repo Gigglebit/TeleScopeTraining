@@ -58,6 +58,8 @@ def dump_l3_flows(desctag):
 		print "Waiting for another 16 seconds"
 		time.sleep(DURATION_OFFSET)
 		result = client.query(query_string)
+		if "series" not in result.raw:
+			return -1
 		values = result.raw["series"][0]["values"]
 		columns = result.raw["series"][0]["columns"]
 		index_duration = columns.index("duration")
@@ -68,16 +70,15 @@ def dump_l3_flows(desctag):
 		terminating_counter = terminating_counter + 1
 
 	
-	print result
+	#print result
 	if "series" not in result.raw:
-	# 	continue
 		return -1
 	#print result
 	values = result.raw["series"][0]["values"]
-	print len(values)
+	#print len(values)
 	columns = result.raw["series"][0]["columns"]
-	print columns
-	print result.raw["series"][0]["name"]
+	#print columns
+	#print result.raw["series"][0]["name"]
 
 	index_stat_id = columns.index("stat_id")
 	index_byte_count = columns.index("byte_count")
@@ -95,10 +96,10 @@ def dump_l3_flows(desctag):
 	previous_duration = -1
 	rawlist = []
 	for entry in values:
-		print entry
+		#print entry
 		if entry[index_duration] < DURATION_LIMIT and entry[index_duration]!=previous_duration:			
 			if entry[index_src_ip]==src_ip and entry[index_dst_ip]==dst_ip: 
-				print '----matched srcIP and dstIP----'
+				#print '----matched srcIP and dstIP----'
 				t = entry[index_time]
 				parsed_t = dp.parse(t)
 				t_in_seconds = parsed_t.strftime('%s')
@@ -111,20 +112,20 @@ def dump_l3_flows(desctag):
 					rawlist.append(row)
 
 				rawlist.append(row)
-				print "rawlist:"+row
+				#print "rawlist:"+row
 				previous_duration = entry[index_duration]
 	
 	with open('out_detail_l3db_all.txt', 'a') as f:
 		# f.write ('time,bytes,pkts,duration,srcIp,srcPort,dstIp,dstPort\n')
 		f.write ('------------- entry src:%s,entry dst: %s,desctag: %s ----------------\n' % (src_ip,dst_ip,desctag))
-		print rawlist
+		#print rawlist
 		for entry in rawlist:
 			f.write(entry)		
 
 	with open('out_detail_l3db.txt', 'w') as f:
 		# f.write ('time,bytes,pkts,duration,srcIp,srcPort,dstIp,dstPort\n')
 		f.write ('------------- entry src:%s,entry dst: %s ----------------\n' % (src_ip,dst_ip))
-		print rawlist
+		#print rawlist
 		for entry in rawlist:
 			f.write(entry)
 	print ("END script")
@@ -344,9 +345,9 @@ if __name__ == "__main__":
 	with open('3607201440pids', 'r') as f:
 		content = f.readlines()
 
-	tempCount = 0
+	#tempCount = 0
 
-	while tempCount < 10:
+	while 1:
 		loopThroughVideoList(content)
-		tempCount += 1
+		#tempCount += 1
 	# dump_l3_flows()
