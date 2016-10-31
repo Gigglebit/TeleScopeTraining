@@ -38,6 +38,8 @@ def dump_l3_flows(desctag):
 	application = "youtube"
 	dst_ip = '129.94.5.92'
 	src_ip = fetchSrcIp(dst_ip)
+	if src_ip == '':
+		return -1
 
 
 	time_frame = 5 #5mins resolution
@@ -265,7 +267,8 @@ def extract_better_features(start, end, tag, desctag):
 def fetchSrcIp(myIp):
 		srcIp =''
 		i = 0 ### loop parameter
-		
+		print '---------fetching src IP wait for 5 seconds------------'
+		time.sleep(5)
 		while srcIp == '' and i < 10:
 			try:
 			    r = requests.get(url='http://129.94.5.44:8080/stats/controller')
@@ -282,7 +285,7 @@ def fetchSrcIp(myIp):
 						return srcIp
 			print(srcIp)
 			i=i+1
-			time.sleep(5)
+			time.sleep(2)
 		return srcIp
 
 def loopThroughVideoList(videoList):
@@ -293,9 +296,10 @@ def loopThroughVideoList(videoList):
 	YTtag=0
 	for video in videoList:
 		video = youtube_prefix + video
+		print '----------------video start--------------------------'
 		################## open firefox ###################	
 		#webbrowser.get('firefox').open_new_tab(video)
-		child = sp.Popen("firefox %s" % video, shell=True)
+		child = sp.Popen("sudo firefox %s" % video, shell=True)
 		time.sleep(20)
 
 		if j<5:
@@ -330,7 +334,7 @@ def loopThroughVideoList(videoList):
 			extract_better_features(50, 114, tag,'YT'+tempYTtag)
 			extract_better_features(66, 130, tag,'YT'+tempYTtag)
 
-		print '----------------video--------------------------'
+		print '----------------video finish--------------------------'
 		#if x == 6:
 		
 		time.sleep(10)
@@ -345,6 +349,7 @@ def gDriveDownloadFunction(gDriveID):
 	NonYTtag=0
 	for id in gDriveID:
 		##start downloading###
+		print '----------------Google Drive Download start--------------------------'
 		exegDriveDownload = "python gDriveDownload.py "+id
 		#os.system(exegDriveDownload)
 		p = sp.Popen(exegDriveDownload,shell = True,preexec_fn=os.setsid)
@@ -353,7 +358,7 @@ def gDriveDownloadFunction(gDriveID):
 		tempNonYTtag = str(NonYTtag)
 		retval = dump_l3_flows(tempNonYTtag)
 		if retval == -1:
-			print("can't get flow stats")
+			print("can't get flow stats for gDrive")
 			os.killpg(os.getpgid(p.pid), signal.SIGTERM)
 			p.kill()
 			p.terminate()
@@ -376,7 +381,7 @@ def gDriveDownloadFunction(gDriveID):
 			extract_better_features(50, 114, 4,'GD'+tempNonYTtag)
 			extract_better_features(66, 130, 4,'GD'+tempNonYTtag)
 
-		print '----------------Google Drive Download--------------------------'
+		print '----------------Google Drive Download finish--------------------------'
 		#if x == 6:
 
 		time.sleep(10)
@@ -401,8 +406,9 @@ if __name__ == "__main__":
 	#tempCount = 0
 
 	while 1:
-		gDriveDownloadFunction(gDriveID)
 		loopThroughVideoList(content)
+		gDriveDownloadFunction(gDriveID)
+		
 		
 
 
